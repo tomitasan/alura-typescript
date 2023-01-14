@@ -48,6 +48,14 @@ export class Negociacao {
         return this.quantidade * this.valor;
     }
 
+    public paraTexto(): string {
+        return `
+            Data: ${this.data},
+            Quantidade: ${this.quantidade},
+            Valor: ${this.valor}
+        `;
+    }
+
     public static criaDe(dataString: string, quantidadeString: string, valorString: string): Negociacao {
         const exp = /-/g;
         const date = new Date(dataString.replace(exp, ','));

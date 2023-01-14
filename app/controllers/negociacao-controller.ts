@@ -47,6 +47,15 @@ export class NegociacaoController {
         }
 
         this.negociacoes.adiciona(negociacao);
+        // console.log(`
+        //     Data: ${negociacao.data},
+        //     Quantidade: ${negociacao.quantidade},
+        //     Valor: ${negociacao.valor}
+        // `);
+
+        console.log(negociacao.paraTexto());
+        console.log(this.negociacoes.paraTexto());
+
         this.limparFormulario();
         this.atualizaView();
 
