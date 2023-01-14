@@ -2,8 +2,10 @@ import { domInjector } from "../decorators/dom-injector.js";
 import { inspect } from "../decorators/inspect.js";
 import { logarTempoDeExecucao } from "../decorators/logar-tempo-de-execucao.js";
 import { DiasDaSemana } from "../enums/dias-da-semana.js";
+// import { NegociacoesDoDia } from "../interfaces/negociacao-do-dia.js";
 import { Negociacao } from "../models/negociacao.js";
 import { Negociacoes } from "../models/negociacoes.js";
+import { NegociacoesService } from "../services/negociacoes-service.js";
 import { MensagemView } from "../views/mensagem-view.js";
 import { NegociacoesView } from "../views/negociacoes-view.js";
 
@@ -17,6 +19,7 @@ export class NegociacaoController {
     private negociacoes = new Negociacoes();
     private negociacoesView = new NegociacoesView('#negociacoesView');
     private mensagemView = new MensagemView('#mensagemView');
+    private negociacoesService = new NegociacoesService();
 
     constructor() {
         // this.inputData = document.querySelector('#data') as HTMLInputElement;
@@ -29,8 +32,7 @@ export class NegociacaoController {
     @logarTempoDeExecucao()
     public adiciona(): void {
         // const negociacao = this.criaNegociacao();
-        // const negociacaoTemp = new Negociacao(null, 0, 0);
-        
+        // const negociacaoTemp = new Negociacao(null, 0, 0);        
         // const t1 = performance.now();
 
         const negociacao = Negociacao.criaDe(
@@ -51,6 +53,37 @@ export class NegociacaoController {
         // const t2 = performance.now();
         // console.log(`Tempo de execução do método adiciona: ${(t2 - t1) / 1000} segundos`);
     }
+
+    public importaDados():void {
+        this.negociacoesService
+            .obterNegociacoesDoDia()
+            .then(negociacoesDeHoje => {
+                for(let negociacao of negociacoesDeHoje) {
+                    this.negociacoes.adiciona(negociacao);
+                }
+                this.negociacoesView.update(this.negociacoes);
+            });
+        /*
+        fetch('http://localhost:8080/dados')
+            .then(res => res.json())
+            .then((dados: NegociacoesDoDia[]) => {
+                return dados.map(dadosDeHoje => {
+                    return new Negociacao(
+                        new Date(), 
+                        dadosDeHoje.vezes, 
+                        dadosDeHoje.montante
+                    );
+                })
+            })
+            .then(negociacoesDeHoje => {
+                for(let negociacao of negociacoesDeHoje) {
+                    this.negociacoes.adiciona(negociacao);
+                }
+                this.negociacoesView.update(this.negociacoes);
+             });
+        */
+    }
+
 
     private ehDiaUtil(data: Date){
         return data.getDay() > DiasDaSemana.DOMINGO && data.getDay() < DiasDaSemana.SABADO;
