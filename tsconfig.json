@@ -1,12 +1,13 @@
 {
     "compilerOptions": {
-        "outDir": "dist/js",
+        "outDir": "app/dist/js",
         "target": "ES6",
-        "noEmitOnError": true,
-        "noImplicitAny": true,
-        "removeComments": true,
-        "strictNullChecks": true,
-        "experimentalDecorators": true
+        "noEmitOnError": true, // não compila/gera pasta dist/js se houver erro no codigo
+        "noImplicitAny": true, // força a declaração de tipo (não deixa o default any)
+        "removeComments": true, // ao compilar para .js, remove os comentarios do código
+        "strictNullChecks": true, // usado para prevenir o erro undefinied durante a compilação
+        "experimentalDecorators": true, // usado para a expressão '@'' para importar/usar funções e classes
+        "sourceMap": true // usado para debug
     },
-    "include": ["app/**/*"]
+    "include": ["app/src/**/*"]
 }
