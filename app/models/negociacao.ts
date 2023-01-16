@@ -1,7 +1,9 @@
 import { NoSubstitutionTemplateLiteral } from "../../node_modules/typescript/lib/typescript";
+import { Modelo } from "../interfaces/modelo.js";
+import { Comparavel } from "../interfaces/comparavel.js";
 import { Imprimivel } from "../utils/imprimivel.js";
 
-export class Negociacao implements Imprimivel {
+export class Negociacao implements Modelo<Negociacao> {
     // private _data: Date;
     // private _quantidade: number;
     // private _valor: number;
@@ -63,5 +65,11 @@ export class Negociacao implements Imprimivel {
         const quantidade = parseInt(quantidadeString);
         const valor = parseFloat(valorString);
         return new Negociacao( date, quantidade, valor );
+    }
+
+    public ehIgual(negociacao: Negociacao): boolean {
+        return this.data.getDate() === negociacao.data.getDate() 
+            && this.data.getMonth() === negociacao.data.getMonth() 
+            && this.data.getFullYear() ===  negociacao.data.getFullYear();
     }
 }
