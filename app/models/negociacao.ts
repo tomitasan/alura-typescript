@@ -1,7 +1,7 @@
 import { NoSubstitutionTemplateLiteral } from "../../node_modules/typescript/lib/typescript";
 import { Imprimivel } from "../utils/imprimivel.js";
 
-export class Negociacao extends Imprimivel {
+export class Negociacao implements Imprimivel {
     // private _data: Date;
     // private _quantidade: number;
     // private _valor: number;
@@ -30,9 +30,7 @@ export class Negociacao extends Imprimivel {
         private _data: Date,
         public readonly quantidade: number,
         public readonly valor: number
-    ) {
-        super();
-    }
+    ) { }
 
     get data(): Date {
         // retornando desta forma, impede que o usuário consiga alterar a data com .setDate()

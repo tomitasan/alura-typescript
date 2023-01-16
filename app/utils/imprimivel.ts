@@ -1,3 +1,4 @@
-export abstract class Imprimivel {
-    public abstract paraTexto(): string;
+// o uso da interface é util qdo temos apenas um metodo simples
+export interface Imprimivel {
+    paraTexto(): string;
 }
